@@ -7,7 +7,7 @@ import {BrowserRouter} from 'react-router-dom';
 ReactDOM.render(
     <ErrorBoundary>
       <BrowserRouter>
-      <App /> 
+        <App /> 
       </BrowserRouter>
     </ErrorBoundary>, 
     document.getElementById("root"));
