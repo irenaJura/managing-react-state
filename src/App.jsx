@@ -2,17 +2,20 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Footer from "./Footer";
 import Header from "./Header";
-import { getProducts } from './services/productService'
+import { getProducts } from './services/productService';
+import Spinner from './Spinner';
 
 export default function App() {
   const [size, setSize] = useState('');
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getProducts('shoes')
       .then((response) => setProducts(response))
-      .catch((e) => setError(e));
+      .catch((e) => setError(e))
+      .finally(() => setLoading(false))
   }, []) // run once after the first render
 
   function renderProduct(p) {
@@ -32,9 +35,10 @@ export default function App() {
     : products;
 
   if (error) throw error;
+  if (loading) return <Spinner />;
 
   return (
-    <>
+    <React.Fragment>
       <div className="content">
         <Header />
         <main>
@@ -54,6 +58,6 @@ export default function App() {
         </main>
       </div>
       <Footer />
-    </>
+    </React.Fragment>
   );
 }
