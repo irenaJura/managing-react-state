@@ -1,5 +1,12 @@
 import React, { useState } from "react";
 
+const STATUS = {
+    IDLE: "IDLE",
+    SUBMITTED: "SUBMITTED",
+    SUBMITTING: "SUBMITTING",
+    COMPLETED: "COMPLETED",
+};
+
 // Declaring outside component to avoid recreation on each render
 const emptyAddress = {
     city: "",
@@ -8,6 +15,7 @@ const emptyAddress = {
 
 export default function Checkout({ cart }) {
     const [address, setAddress] = useState(emptyAddress);
+    const [status, setStatus] = useState(STATUS.IDLE);
 
     function handleChange(e) {
         e.persist(); // persist the event
@@ -24,7 +32,9 @@ export default function Checkout({ cart }) {
     }
 
     async function handleSubmit(event) {
-        // TODO
+        // prevent from posting to server
+        event.preventDefault();
+        setStatus(STATUS.SUBMITTING);
     }
 
     return (
@@ -65,6 +75,7 @@ export default function Checkout({ cart }) {
                         type="submit"
                         className="btn btn-primary"
                         value="Save Shipping Info"
+                        disabled={status === STATUS.SUBMITTING}
                     />
                 </div>
             </form>
