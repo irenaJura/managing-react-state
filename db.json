@@ -69,6 +69,11 @@
       "city": "Osijek",
       "country": "China",
       "id": 2
+    },
+    {
+      "city": "Osijek",
+      "country": "USA",
+      "id": 3
     }
   ]
 }
